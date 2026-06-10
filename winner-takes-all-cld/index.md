@@ -19,7 +19,7 @@ The viewer is a port of the
 
 **Drag any node** to rearrange the layout. **Click a node, edge, or R/B marker**
 for details. The full discussion is in the
-[Winner Takes All article](../../../articles/winner-takes-all.md).
+[Winner Takes All article](https://dmccreary.github.io/tracking-ai-course/articles/winner-takes-all/).
 
 ## Loops
 
