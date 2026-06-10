@@ -1,0 +1,84 @@
+{
+  "title": "Generative AI Idea Funnel",
+  "description": "Interactive infographic showing the seven stages of a GenAI Center of Excellence idea funnel process from training to deployment.",
+  "creator": "Dan McCreary",
+  "date": "2025-01-01",
+  "subject": [
+    "AI Governance",
+    "Innovation Management",
+    "Center of Excellence",
+    "Idea Management",
+    "AI Strategy"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "publisher": "Dan McCreary",
+  "educationalLevel": "Professional",
+  "learningResourceType": "simulation",
+  "audience": "AI Leaders, Innovation Managers, Executives",
+  "version": "1.0.0",
+  "bloomLevel": [
+    "Understand",
+    "Apply",
+    "Analyze"
+  ],
+  "concepts": [
+    "Idea Submission",
+    "Expert Review",
+    "Scoring",
+    "Development",
+    "Deployment"
+  ],
+  "prerequisites": [
+    "Understanding of organizational AI adoption"
+  ],
+  "library": "p5.js",
+  "visualizationType": [
+    "data-visualization",
+    "interactive-demo",
+    "map",
+    "network",
+    "simulation",
+    "timeline"
+  ],
+  "learningObjectives": [
+    "Understand the key concepts of generative ai idea funnel",
+    "Explore generative ai idea funnel through interactive visualization",
+    "Apply knowledge of generative ai idea funnel to solve problems",
+    "Experiment with parameters to observe their effects on generative ai idea funnel"
+  ],
+  "bloomsTaxonomy": [
+    "Remember",
+    "Understand",
+    "Apply",
+    "Analyze",
+    "Evaluate",
+    "Create"
+  ],
+  "pedagogical": {
+    "pattern": "assessment",
+    "bloomAlignment": [
+      "understand",
+      "apply",
+      "analyze"
+    ],
+    "bloomVerbs": [
+      "classify",
+      "compare",
+      "describe",
+      "explain",
+      "interpret"
+    ],
+    "pacing": "self-paced",
+    "supportsPrediction": true,
+    "dataVisibility": "high",
+    "feedbackType": [
+      "immediate",
+      "corrective",
+      "explanatory"
+    ],
+    "interactionStyle": "respond"
+  }
+}

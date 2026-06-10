@@ -1,0 +1,108 @@
+{
+  "metadata": {
+    "id": "capital-compute-cld",
+    "title": "Capital → Compute → Capability (R3)",
+    "archetype": "success-to-the-successful",
+    "description": "Better models win market share, share unlocks capital, capital buys compute, compute lifts capability. The loop where strategic investment (e.g. Google's $40B in Anthropic) plugs in.",
+    "version": "1.0.0",
+    "created_date": "2026-05-05",
+    "author": "Tracking AI Course",
+    "tags": ["ai", "capital", "compute", "reinforcing-loop", "scaling"]
+  },
+  "nodes": [
+    {
+      "id": "model_capability",
+      "label": "Model Capability",
+      "position": {"x": 300, "y": 120},
+      "type": "stock",
+      "description": "Aggregate quality of the frontier model."
+    },
+    {
+      "id": "market_share",
+      "label": "Market Share",
+      "position": {"x": 520, "y": 300},
+      "type": "variable",
+      "description": "Share of paid frontier-model usage and enterprise contracts."
+    },
+    {
+      "id": "capital",
+      "label": "Capital",
+      "position": {"x": 420, "y": 500},
+      "type": "variable",
+      "description": "Cash from revenue plus strategic investment available to spend on training. Includes deals like Google's $40B commitment to Anthropic."
+    },
+    {
+      "id": "compute_scale",
+      "label": "Compute Scale",
+      "position": {"x": 180, "y": 500},
+      "type": "variable",
+      "description": "Total training compute available — GPUs, datacenters, electricity contracts."
+    },
+    {
+      "id": "training_throughput",
+      "label": "Training Throughput",
+      "position": {"x": 80, "y": 300},
+      "type": "variable",
+      "description": "How quickly the lab can train new frontier models."
+    }
+  ],
+  "edges": [
+    {
+      "id": "mc_to_ms",
+      "source": "model_capability",
+      "target": "market_share",
+      "polarity": "positive",
+      "description": "Better models win more customers.",
+      "strength": "strong"
+    },
+    {
+      "id": "ms_to_cap",
+      "source": "market_share",
+      "target": "capital",
+      "polarity": "positive",
+      "description": "Market share converts to revenue and unlocks strategic investment.",
+      "strength": "strong"
+    },
+    {
+      "id": "cap_to_cs",
+      "source": "capital",
+      "target": "compute_scale",
+      "polarity": "positive",
+      "description": "Capital buys GPUs, power, and datacenters.",
+      "strength": "strong"
+    },
+    {
+      "id": "cs_to_tt",
+      "source": "compute_scale",
+      "target": "training_throughput",
+      "polarity": "positive",
+      "description": "More compute means faster, larger training runs.",
+      "strength": "strong"
+    },
+    {
+      "id": "tt_to_mc",
+      "source": "training_throughput",
+      "target": "model_capability",
+      "polarity": "positive",
+      "description": "Higher training throughput lifts capability.",
+      "strength": "strong",
+      "delay": {
+        "present": true,
+        "duration": "months",
+        "description": "Compute investments take quarters to translate into deployed capability."
+      }
+    }
+  ],
+  "loops": [
+    {
+      "id": "R3",
+      "type": "reinforcing",
+      "label": "R3: Capital → Compute → Capability",
+      "description": "A persistent capital advantage weakens compute scarcity for the leader specifically, while it keeps biting everyone else.",
+      "path": ["model_capability", "market_share", "capital", "compute_scale", "training_throughput", "model_capability"],
+      "behavior_pattern": "Asymmetric scaling — the rich get richer in compute access.",
+      "position": {"x": 300, "y": 320},
+      "is_primary": true
+    }
+  ]
+}

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMLU Benchmark Performance 2020-2025</title>
+    
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .chart-container {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-radius: 8px;
+            padding: 20px;
+            background-color: white;
+            margin-top: 20px;
+            height: 600px;
+            position: relative;
+        }
+        h1 {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .controls-container {
+            margin-top: 20px;
+        }
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .family-buttons, .model-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 6px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: white;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            background-color: #f7fafc;
+        }
+        .btn.active {
+            background-color: #edf2f7;
+            border-color: #a0aec0;
+        }
+        .model-btn {
+            display: inline-flex;
+            align-items: center;
+        }
+        .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+            display: inline-block;
+        }
+        .footnote {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #718096;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MMLU Benchmark Performance (2020-2025)</h1>
+        
+        <div class="chart-container">
+            <canvas id="mmluChart"></canvas>
+        </div>
+        
+        <div class="controls-container">
+            <div class="section-title">Model Families</div>
+            <div class="family-buttons" id="family-buttons"></div>
+            
+            <div class="section-title">Individual Models</div>
+            <div class="model-buttons" id="model-buttons"></div>
+        </div>
+        
+        <div class="footnote">
+            <p>Source: Compiled from multiple public benchmarks and research papers, May 2025.</p>
+            <p>Note: MMLU (Massive Multitask Language Understanding) measures model performance across 57 subjects ranging from STEM to humanities.</p>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js must be fully loaded before running this script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Data for the chart
+            const data = [
+                { date: '2020-06', GPT3: 43.9 },
+                { date: '2021-06', GPT3: 45.2 },
+                { date: '2022-03', GPT3: 46.8, PaLM: 55.0 },
+                { date: '2023-03', GPT4: 86.4, Claude1: 71.2, PaLM: 58.2 },
+                { date: '2023-07', GPT4: 86.8, Claude2: 75.0, Gemini: 77.5, LLaMA2: 68.0 },
+                { date: '2023-12', GPT4: 87.0, Claude3: 82.1, Gemini: 81.2, LLaMA2: 69.2 },
+                { date: '2024-03', GPT4: 87.2, Claude3: 84.5, Gemini: 83.0, Mistral: 79.1 },
+                { date: '2024-06', GPT4o: 87.4, Claude35: 88.7, Gemini15: 85.1, Mistral: 80.7 },
+                { date: '2024-10', GPT4o: 87.6, Claude35: 89.1, Gemini2: 87.3, Llama3: 82.5 },
+                { date: '2025-02', GPT4o1: 91.5, Claude37: 88.0, Gemini25: 89.5, Llama4: 85.5 },
+                { date: '2025-04', GPT41: 90.2, Claude37: 87.0, Gemini25: 89.8, Llama4: 85.5, Grok3: 92.7 }
+            ];
+
+            // Extract the unique dates for the x-axis
+            const labels = data.map(item => item.date);
+
+            // Extract all the unique model names
+            const allModels = [];
+            data.forEach(item => {
+                Object.keys(item).forEach(key => {
+                    if (key !== 'date' && !allModels.includes(key)) {
+                        allModels.push(key);
+                    }
+                });
+            });
+
+            // Color scheme for models
+            const colorMap = {
+                GPT3: 'rgb(116, 185, 255)',
+                GPT4: 'rgb(9, 132, 227)',
+                GPT4o: 'rgb(9, 132, 227)',
+                GPT4o1: 'rgb(9, 132, 227)',
+                GPT41: 'rgb(9, 132, 227)',
+                Claude1: 'rgb(253, 203, 110)',
+                Claude2: 'rgb(243, 156, 18)',
+                Claude3: 'rgb(230, 126, 34)',
+                Claude35: 'rgb(230, 126, 34)',
+                Claude37: 'rgb(230, 126, 34)',
+                PaLM: 'rgb(162, 155, 254)',
+                Gemini: 'rgb(108, 92, 231)',
+                Gemini15: 'rgb(108, 92, 231)',
+                Gemini2: 'rgb(108, 92, 231)',
+                Gemini25: 'rgb(108, 92, 231)',
+                LLaMA2: 'rgb(85, 239, 196)',
+                Llama3: 'rgb(0, 184, 148)',
+                Llama4: 'rgb(0, 184, 148)',
+                Mistral: 'rgb(255, 118, 117)',
+                Grok3: 'rgb(214, 48, 49)'
+            };
+
+            // Group models by family
+            const modelFamilies = {
+                "OpenAI": ['GPT3', 'GPT4', 'GPT4o', 'GPT4o1', 'GPT41'],
+                "Anthropic": ['Claude1', 'Claude2', 'Claude3', 'Claude35', 'Claude37'],
+                "Google": ['PaLM', 'Gemini', 'Gemini15', 'Gemini2', 'Gemini25'],
+                "Meta": ['LLaMA2', 'Llama3', 'Llama4'],
+                "Other": ['Mistral', 'Grok3']
+            };
+
+            // Prepare datasets for Chart.js
+            const datasets = allModels.map(model => {
+                const modelData = data.map(item => item[model] || null);
+                
+                return {
+                    label: model,
+                    data: modelData,
+                    borderColor: colorMap[model],
+                    backgroundColor: colorMap[model],
+                    borderWidth: 2,
+                    tension: 0.1,
+                    pointRadius: 4,
+                    pointHoverRadius: 7,
+                    hidden: false
+                };
+            });
+
+            // Create chart
+            const ctx = document.getElementById('mmluChart').getContext('2d');
+            const mmluChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            suggestedMin: 40,
+                            suggestedMax: 100,
+                            title: {
+                                display: true,
+                                text: 'MMLU Score (%)',
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date',
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // We'll use custom buttons instead
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.dataset.label || '';
+                                    const value = context.parsed.y !== null 
+                                        ? context.parsed.y.toFixed(1) + '%' 
+                                        : 'No data';
+                                    return label + ': ' + value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Create and add family toggle buttons
+            const familyButtonsContainer = document.getElementById('family-buttons');
+            
+            Object.keys(modelFamilies).forEach(family => {
+                const button = document.createElement('button');
+                button.classList.add('btn', 'active');
+                button.textContent = family;
+                button.setAttribute('data-family', family);
+                
+                button.addEventListener('click', function() {
+                    const isActive = this.classList.contains('active');
+                    const familyModels = modelFamilies[family];
+                    
+                    // Toggle visibility for all models in this family
+                    familyModels.forEach(model => {
+                        const datasetIndex = datasets.findIndex(d => d.label === model);
+                        const isHidden = mmluChart.isDatasetHidden(datasetIndex);
+                        
+                        // If button is active (will be deactivated), hide datasets
+                        // If button is inactive (will be activated), show datasets
+                        mmluChart.setDatasetVisibility(datasetIndex, !isActive);
+                        
+                        // Also update the model buttons for this family
+                        const modelButton = document.querySelector(`.model-btn[data-model="${model}"]`);
+                        if (modelButton) {
+                            if (isActive) {
+                                modelButton.classList.remove('active');
+                            } else {
+                                modelButton.classList.add('active');
+                            }
+                        }
+                    });
+                    
+                    // Toggle active class on this button
+                    this.classList.toggle('active');
+                    
+                    mmluChart.update();
+                });
+                
+                familyButtonsContainer.appendChild(button);
+            });
+            
+            // Create and add individual model toggle buttons
+            const modelButtonsContainer = document.getElementById('model-buttons');
+            
+            allModels.forEach(model => {
+                const button = document.createElement('button');
+                button.classList.add('btn', 'model-btn', 'active');
+                button.setAttribute('data-model', model);
+                
+                // Add color dot and model name
+                const colorDot = document.createElement('span');
+                colorDot.classList.add('color-dot');
+                colorDot.style.backgroundColor = colorMap[model];
+                
+                const modelName = document.createElement('span');
+                modelName.textContent = model;
+                
+                button.appendChild(colorDot);
+                button.appendChild(modelName);
+                
+                button.addEventListener('click', function() {
+                    const datasetIndex = datasets.findIndex(d => d.label === model);
+                    const isHidden = mmluChart.isDatasetHidden(datasetIndex);
+                    
+                    // Toggle visibility
+                    mmluChart.setDatasetVisibility(datasetIndex, isHidden);
+                    
+                    // Toggle active class
+                    this.classList.toggle('active', isHidden);
+                    
+                    // Update family button status
+                    // Find which family this model belongs to
+                    for (const [family, models] of Object.entries(modelFamilies)) {
+                        if (models.includes(model)) {
+                            const familyModels = models;
+                            const familyButton = document.querySelector(`.btn[data-family="${family}"]`);
+                            
+                            // Check if all models in this family are now hidden
+                            const allHidden = familyModels.every(model => {
+                                const datasetIndex = datasets.findIndex(d => d.label === model);
+                                return mmluChart.isDatasetHidden(datasetIndex);
+                            });
+                            
+                            // Check if all models in this family are now visible
+                            const allVisible = familyModels.every(model => {
+                                const datasetIndex = datasets.findIndex(d => d.label === model);
+                                return !mmluChart.isDatasetHidden(datasetIndex);
+                            });
+                            
+                            if (allHidden) {
+                                familyButton.classList.remove('active');
+                            } else if (allVisible) {
+                                familyButton.classList.add('active');
+                            }
+                            
+                            break;
+                        }
+                    }
+                    
+                    mmluChart.update();
+                });
+                
+                modelButtonsContainer.appendChild(button);
+            });
+        });
+    </script>
+</body>
+</html>

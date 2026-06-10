@@ -1,0 +1,79 @@
+{
+  "title": "Autoregressive MicroSim",
+  "description": "Interactive simulation showing how autoregressive language models predict the next token from a sequence of words using a neural network visualization.",
+  "creator": "Dan McCreary",
+  "date": "2025-01-01",
+  "subject": [
+    "Autoregressive Models",
+    "Language Models",
+    "Neural Networks",
+    "Token Prediction",
+    "Deep Learning"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "publisher": "Dan McCreary",
+  "educationalLevel": "High School",
+  "learningResourceType": "simulation",
+  "audience": "Students, Educators, AI Enthusiasts",
+  "version": "1.0.0",
+  "bloomLevel": [
+    "Understand",
+    "Apply"
+  ],
+  "concepts": [
+    "Token Prediction",
+    "Context Window",
+    "Neural Network Layers",
+    "Autoregressive Generation"
+  ],
+  "prerequisites": [
+    "Basic understanding of neural networks"
+  ],
+  "library": "p5.js",
+  "visualizationType": [
+    "animation",
+    "graph",
+    "interactive-demo",
+    "network",
+    "simulation"
+  ],
+  "learningObjectives": [
+    "Understand the key concepts of autoregressive",
+    "Explore autoregressive through interactive visualization",
+    "Apply knowledge of autoregressive to solve problems",
+    "Experiment with parameters to observe their effects on autoregressive"
+  ],
+  "bloomsTaxonomy": [
+    "Remember",
+    "Understand",
+    "Apply",
+    "Create"
+  ],
+  "pedagogical": {
+    "pattern": "demonstration",
+    "bloomAlignment": [
+      "understand",
+      "apply",
+      "evaluate"
+    ],
+    "bloomVerbs": [
+      "describe",
+      "demonstrate",
+      "use",
+      "assess",
+      "evaluate"
+    ],
+    "pacing": "self-paced",
+    "supportsPrediction": true,
+    "dataVisibility": "high",
+    "feedbackType": [
+      "immediate",
+      "corrective",
+      "explanatory"
+    ],
+    "interactionStyle": "construct"
+  }
+}

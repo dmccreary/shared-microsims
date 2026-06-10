@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+  <title>Deep Learning Timeline</title>
+  <script type="text/javascript" src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+  <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+  <style type="text/css">
+    #visualization {
+      width: 90%;
+      height: 800px;
+      border: 1px solid lightgray;
+      margin: 0 auto;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<h1>Key Events in Deep Learning History</h1>
+<div id="visualization"></div>
+<script type="text/javascript">
+  // DOM element where the Timeline will be attached
+  var container = document.getElementById('visualization');
+
+  // Create a DataSet (allows two way data-binding)
+  var items = new vis.DataSet([
+    {id: 1, content: '1943 - McCulloch & Pitts: First computational model of neural networks', start: '1943-01-01'},
+    {id: 2, content: '1949 - Donald Hebb publishes "The Organization of Behavior" (Hebbian learning)', start: '1949-01-01'},
+    {id: 3, content: '1950 - Alan Turing proposes the Turing Test', start: '1950-01-01'},
+    {id: 4, content: '1951 - Marvin Minsky builds SNARC, a stochastic neural computer', start: '1951-01-01'},
+    {id: 5, content: '1956 - Dartmouth Workshop, considered the birth of AI as a field', start: '1956-01-01'},
+    {id: 6, content: '1957 - Frank Rosenblatt conceives the Perceptron at Cornell', start: '1957-01-01'},
+    {id: 7, content: '1958 - Rosenblatt formally publishes the Perceptron algorithm', start: '1958-01-01'},
+    {id: 8, content: '1959 - Widrow & Hoff develop ADALINE with the LMS learning rule', start: '1959-01-01'},
+    {id: 9, content: '1960 - MADALINE, first neural network applied to real-world problem (phone lines)', start: '1960-01-01'},
+    {id:10, content: '1961 - Perceptron demo for simple image recognition tasks', start: '1961-01-01'},
+    {id:11, content: '1962 - Rosenblatt extends Perceptron to a multi-layer approach (precursor to MLP)', start: '1962-01-01'},
+    {id:12, content: '1965 - Ivakhnenko & Lapa use multi-layer perceptron with polynomial activation', start: '1965-01-01'},
+    {id:13, content: '1967 - Bryson & Ho discuss backpropagation-like methods for control', start: '1967-01-01'},
+    {id:14, content: '1969 - Minsky & Papert publish "Perceptrons," highlighting major limitations', start: '1969-01-01'},
+    {id:15, content: '1970 - Seppo Linnainmaa publishes methods of automatic differentiation', start: '1970-01-01'},
+    {id:16, content: '1971 - Stephen Grossberg develops Adaptive Resonance Theory (ART)', start: '1971-01-01'},
+    {id:17, content: '1974 - Paul Werbos proposes backpropagation for training multi-layer networks', start: '1974-01-01'},
+    {id:18, content: '1975 - John Holland popularizes Genetic Algorithms for AI', start: '1975-01-01'},
+    {id:19, content: '1979 - Kunihiko Fukushima presents the Neocognitron (precursor to CNNs)', start: '1979-01-01'},
+    {id:20, content: '1980 - Teuvo Kohonen develops the Self-Organizing Map (SOM)', start: '1980-01-01'},
+    {id:21, content: '1981 - John Hopfield introduces Hopfield networks for associative memory', start: '1981-01-01'},
+    {id:22, content: '1982 - Early use of backpropagation by Parker, Rumelhart, others', start: '1982-01-01'},
+    {id:23, content: '1983 - Concept of "distributed representation" gains traction in cognitive science', start: '1983-01-01'},
+    {id:24, content: '1984 - Hinton & Sejnowski introduce Boltzmann Machines', start: '1984-01-01'},
+    {id:25, content: '1985 - Rumelhart, Hinton, Williams refine and popularize backpropagation', start: '1985-01-01'},
+    {id:26, content: '1986 - Rumelhart et al. publish backpropagation in "Nature"', start: '1986-01-01'},
+    {id:27, content: '1986 - "Parallel Distributed Processing" (PDP) volumes by Rumelhart & McClelland', start: '1986-01-01'},
+    {id:28, content: '1987 - First Neural Information Processing Systems (NIPS) conference is held', start: '1987-01-01'},
+    {id:29, content: '1988 - Yann LeCun applies backprop to convolutional nets for handwriting recognition', start: '1988-01-01'},
+    {id:30, content: '1989 - LeCun demonstrates CNNs for ZIP code digit classification', start: '1989-01-01'},
+    {id:31, content: '1990 - Radial Basis Function (RBF) networks introduced for function approximation', start: '1990-01-01'},
+    {id:32, content: '1991 - Schmidhuber publishes on fundamental limitations of RNNs', start: '1991-01-01'},
+    {id:33, content: '1992 - Schmidhuber introduces incremental RNN architectures', start: '1992-01-01'},
+    {id:34, content: '1993 - Sepp Hochreiter identifies the vanishing gradient problem in RNNs', start: '1993-01-01'},
+    {id:35, content: '1994 - Bengio, Simard, Frasconi analyze vanishing/exploding gradients in depth', start: '1994-01-01'},
+    {id:36, content: '1995 - Vladimir Vapnik promotes Support Vector Machines (SVMs)', start: '1995-01-01'},
+    {id:37, content: '1996 - IBM’s Deep Blue beats Garry Kasparov, boosting interest in advanced AI', start: '1996-01-01'},
+    {id:38, content: '1997 - Hochreiter & Schmidhuber propose LSTM for long-term dependencies in RNNs', start: '1997-01-01'},
+    {id:39, content: '1998 - LeCun et al. publish MNIST database & CNN results', start: '1998-01-01'},
+    {id:40, content: '1999 - GPU programming for general tasks begins to gain traction', start: '1999-01-01'},
+    {id:41, content: '2000 - Kernel methods (SVMs) dominate many ML benchmarks', start: '2000-01-01'},
+    {id:42, content: '2001 - Microsoft integrates neural networks in speech recognition systems', start: '2001-01-01'},
+    {id:43, content: '2002 - Cristianini & Shawe-Taylor publish "An Introduction to SVMs"', start: '2002-01-01'},
+    {id:44, content: '2003 - NIPS showcases Large-Scale Kernel Methods, overshadowing neural nets', start: '2003-01-01'},
+    {id:45, content: '2004 - Hinton’s group explores deeper autoencoders for dimensionality reduction', start: '2004-01-01'},
+    {id:46, content: '2005 - PASCAL Visual Object Classes Challenge highlights image recognition', start: '2005-01-01'},
+    {id:47, content: '2006 - Hinton & Salakhutdinov introduce Deep Belief Nets in "Science"', start: '2006-01-01'},
+    {id:48, content: '2007 - Bengio et al. demonstrate greedy layer-wise training for deep networks', start: '2007-01-01'},
+    {id:49, content: '2007 - NVIDIA releases CUDA, facilitating GPU-accelerated neural network training', start: '2007-01-01'},
+    {id:50, content: '2008 - Andrew Ng’s group applies deep learning to self-taught image recognition', start: '2008-01-01'},
+    {id:51, content: '2009 - Fei-Fei Li’s ImageNet dataset & Challenge debut', start: '2009-01-01'},
+    {id:52, content: '2010 - Kaggle launched, spurring data science contests including deep learning tasks', start: '2010-01-01'},
+    {id:53, content: '2010 - Mikolov introduces Recurrent Neural Network Language Models', start: '2010-01-01'},
+    {id:54, content: '2011 - Glorot & Bengio propose Xavier initialization for better training stability', start: '2011-01-01'},
+    {id:55, content: '2011 - Google Brain project begins, large-scale deep learning initiatives', start: '2011-01-01'},
+    {id:56, content: '2012 - AlexNet wins ImageNet, demonstrating huge gains with deep CNNs', start: '2012-01-01'},
+    {id:57, content: '2012 - Dropout introduced by Hinton & Srivastava for regularization', start: '2012-01-01'},
+    {id:58, content: '2013 - Mikolov et al. release word2vec for word embeddings', start: '2013-01-01'},
+    {id:59, content: '2013 - ReLUs gain popularity for training deep networks', start: '2013-01-01'},
+    {id:60, content: '2013 - Deep nets start to dominate Kaggle image and speech competitions', start: '2013-01-01'},
+    {id:61, content: '2014 - Ian Goodfellow proposes Generative Adversarial Networks (GANs)', start: '2014-01-01'},
+    {id:62, content: '2014 - Sutskever, Vinyals, Le present sequence-to-sequence learning for machine translation', start: '2014-01-01'},
+    {id:63, content: '2014 - Ba & Caruana propose teacher-student networks for model compression', start: '2014-01-01'},
+    {id:64, content: '2015 - He et al. develop ResNet, beating human-level ImageNet performance', start: '2015-01-01'},
+    {id:65, content: '2015 - Ioffe & Szegedy introduce Batch Normalization', start: '2015-01-01'},
+    {id:66, content: '2015 - VGG architecture from Oxford’s Visual Geometry Group is widely adopted', start: '2015-01-01'},
+    {id:67, content: '2015 - DeepMind uses Deep Reinforcement Learning to master Atari games', start: '2015-01-01'},
+    {id:68, content: '2016 - AlphaGo defeats Lee Sedol in the game of Go', start: '2016-01-01'},
+    {id:69, content: '2016 - Neural style transfer popularized by Gatys et al.', start: '2016-01-01'},
+    {id:70, content: '2016 - Emergence of large-scale distributed deep learning frameworks (e.g. Horovod)', start: '2016-01-01'},
+    {id:71, content: '2017 - "Attention Is All You Need": Transformers by Vaswani et al.', start: '2017-01-01'},
+    {id:72, content: '2017 - Geoffrey Hinton proposes Capsule Networks', start: '2017-01-01'},
+    {id:73, content: '2017 - AlphaGo Zero outperforms AlphaGo using self-play reinforcement learning', start: '2017-01-01'},
+    {id:74, content: '2018 - BERT by Devlin et al. introduces bidirectional pre-training for NLP', start: '2018-01-01'},
+    {id:75, content: '2018 - OpenAI’s GPT-1 is unveiled, pioneering generative pre-training in NLP', start: '2018-01-01'},
+    {id:76, content: '2018 - DeepMind’s AlphaFold shows progress in protein structure prediction', start: '2018-01-01'},
+    {id:77, content: '2019 - OpenAI GPT-2 is released, showcasing advanced text generation', start: '2019-01-01'},
+    {id:78, content: '2019 - XLNet from CMU/Google Brain improves upon BERT in NLP benchmarks', start: '2019-01-01'},
+    {id:79, content: '2019 - Facebook AI releases wav2vec for self-supervised speech representation', start: '2019-01-01'},
+    {id:80, content: '2019 - EfficientNet by Google scales CNNs for state-of-the-art image results', start: '2019-01-01'},
+    {id:81, content: '2020 - OpenAI GPT-3 sets new standards in language modeling', start: '2020-01-01'},
+    {id:82, content: '2020 - DeepMind’s AlphaFold2 solves protein folding to near-experimental accuracy', start: '2020-01-01'},
+    {id:83, content: '2020 - Vision Transformer (ViT) by Google Brain applies Transformers to images', start: '2020-01-01'},
+    {id:84, content: '2020 - OpenAI’s CLIP unifies text & image embeddings for zero-shot tasks', start: '2020-01-01'},
+    {id:85, content: '2021 - OpenAI’s DALL-E introduces text-to-image generative modeling', start: '2021-01-01'},
+    {id:86, content: '2021 - Apple’s M1 chip includes Neural Engine for on-device ML acceleration', start: '2021-01-01'},
+    {id:87, content: '2021 - DeepMind reveals AlphaCode for code generation tasks', start: '2021-01-01'},
+    {id:88, content: '2021 - GLaM by Google explores mixture-of-experts for language models', start: '2021-01-01'},
+    {id:89, content: '2022 - OpenAI launches ChatGPT, revolutionizing conversational AI', start: '2022-01-01'},
+    {id:90, content: '2022 - Midjourney & Stable Diffusion popularize text-to-image generation for the public', start: '2022-01-01'},
+    {id:91, content: '2022 - Google unveils PaLM, a 540B-parameter language model', start: '2022-01-01'},
+    {id:92, content: '2022 - Megatron-Turing NLG by Microsoft & NVIDIA showcases massive LLM scaling', start: '2022-01-01'},
+    {id:93, content: '2023 - OpenAI releases GPT-4, with improved reasoning and multimodal capabilities', start: '2023-01-01'},
+    {id:94, content: '2023 - Meta announces LLaMA, a suite of large language models', start: '2023-01-01'},
+    {id:95, content: '2023 - Falcon LLM from Technology Innovation Institute sets new performance benchmarks', start: '2023-01-01'},
+    {id:96, content: '2023 - Mistral AI debuts Mistral 7B, a powerful open-source LLM', start: '2023-01-01'},
+    {id:97, content: '2023 - Foundational Model Summit focuses on large-scale general-purpose models', start: '2023-01-01'},
+    {id:98, content: '2023 - Sam Altman testifies before US Congress about advanced AI regulation', start: '2023-01-01'},
+    {id:99, content: '2023 - Rapid expansion of generative AI ecosystem across industries', start: '2023-01-01'},
+    {id:100, content: '2023 - Ongoing global developments push Deep Learning into daily life applications', start: '2023-01-01'}
+  ]);
+
+  // Configuration for the Timeline
+  var options = {
+    // Restrict the timeline's visible window (and scrolling) to 1935 - 2025
+    min: "1935-01-01",
+    max: "2025-12-31",
+    start: "1935-01-01",
+    end: "2025-12-31",
+    stack: true,
+    maxHeight: '90%',
+    minHeight: '500px',
+    margin: {
+      item: 10,
+      axis: 10
+    }
+  };
+
+  // Create a Timeline
+  var timeline = new vis.Timeline(container, items, options);
+</script>
+</body>
+</html>

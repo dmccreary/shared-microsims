@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "id": "evaluation-bottleneck-cld",
+    "title": "Evaluation Bottleneck (B2)",
+    "archetype": "limits-to-growth",
+    "description": "As models get more capable, they get harder to evaluate. Benchmark gaming, contamination, and reward hacking compound. The system can't reliably tell whether the new model is actually better.",
+    "version": "1.0.0",
+    "created_date": "2026-05-05",
+    "author": "Tracking AI Course",
+    "tags": ["ai", "evaluation", "balancing-loop", "ground-truth", "benchmarks"]
+  },
+  "nodes": [
+    {
+      "id": "model_capability",
+      "label": "Model Capability",
+      "position": {"x": 300, "y": 120},
+      "type": "stock",
+      "description": "Aggregate quality of the frontier model."
+    },
+    {
+      "id": "model_complexity",
+      "label": "Model Complexity",
+      "position": {"x": 500, "y": 320},
+      "type": "variable",
+      "description": "Internal complexity that makes the system harder to evaluate against ground truth."
+    },
+    {
+      "id": "evaluation_difficulty",
+      "label": "Evaluation Difficulty",
+      "position": {"x": 300, "y": 500},
+      "type": "variable",
+      "description": "How hard it is to know whether a new model is actually better, beyond benchmark gaming."
+    },
+    {
+      "id": "reliable_progress",
+      "label": "Reliable Progress",
+      "position": {"x": 100, "y": 320},
+      "type": "variable",
+      "description": "Rate at which actually-better models can be identified, validated, and shipped."
+    }
+  ],
+  "edges": [
+    {
+      "id": "mc_to_mx",
+      "source": "model_capability",
+      "target": "model_complexity",
+      "polarity": "positive",
+      "description": "More capable models are also more complex internally.",
+      "strength": "strong"
+    },
+    {
+      "id": "mx_to_ed",
+      "source": "model_complexity",
+      "target": "evaluation_difficulty",
+      "polarity": "positive",
+      "description": "Complexity makes ground-truth evaluation harder.",
+      "strength": "strong"
+    },
+    {
+      "id": "ed_to_rp",
+      "source": "evaluation_difficulty",
+      "target": "reliable_progress",
+      "polarity": "negative",
+      "description": "Hard evaluation introduces noise and slows verified improvement.",
+      "strength": "strong"
+    },
+    {
+      "id": "rp_to_mc",
+      "source": "reliable_progress",
+      "target": "model_capability",
+      "polarity": "positive",
+      "description": "Slower reliable progress slows capability gains in the long run.",
+      "strength": "strong"
+    }
+  ],
+  "loops": [
+    {
+      "id": "B2",
+      "type": "balancing",
+      "label": "B2: Evaluation Bottleneck",
+      "description": "The loop most underrated by people excited about autonomous research — you cannot self-improve faster than you can self-evaluate.",
+      "path": ["model_capability", "model_complexity", "evaluation_difficulty", "reliable_progress", "model_capability"],
+      "behavior_pattern": "Diminishing returns from capability gains as evaluation noise grows.",
+      "position": {"x": 300, "y": 320},
+      "is_primary": true
+    }
+  ]
+}

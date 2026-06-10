@@ -1,0 +1,75 @@
+{
+  "title": "Language Model Arena Timeline",
+  "description": "Interactive visualization of LMArena benchmark rankings showing crowdsourced AI model comparisons using the Bradley-Terry model.",
+  "creator": "Dan McCreary",
+  "date": "2025-01-01",
+  "subject": [
+    "LLM Benchmarks",
+    "AI Model Comparison",
+    "Crowdsourced Evaluation",
+    "Bradley-Terry Model"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "publisher": "Dan McCreary",
+  "educationalLevel": "Professional",
+  "learningResourceType": "simulation",
+  "audience": "AI Researchers, Developers",
+  "version": "1.0.0",
+  "bloomLevel": [
+    "Understand",
+    "Analyze"
+  ],
+  "concepts": [
+    "LLM Benchmarking",
+    "Model Comparison",
+    "Crowdsourced Evaluation"
+  ],
+  "prerequisites": [
+    "Understanding of language models"
+  ],
+  "library": "p5.js",
+  "visualizationType": [
+    "graph",
+    "interactive-demo",
+    "map",
+    "simulation",
+    "timeline"
+  ],
+  "learningObjectives": [
+    "Understand the key concepts of language model arena timeline",
+    "Explore language model arena timeline through interactive visualization",
+    "Apply knowledge of language model arena timeline to solve problems",
+    "Test understanding of language model arena timeline through interactive exercises"
+  ],
+  "bloomsTaxonomy": [
+    "Remember",
+    "Apply",
+    "Create"
+  ],
+  "pedagogical": {
+    "pattern": "assessment",
+    "bloomAlignment": [
+      "remember",
+      "apply",
+      "evaluate"
+    ],
+    "bloomVerbs": [
+      "illustrate",
+      "implement",
+      "use",
+      "assess",
+      "critique"
+    ],
+    "pacing": "self-paced",
+    "supportsPrediction": true,
+    "dataVisibility": "medium",
+    "feedbackType": [
+      "immediate",
+      "corrective"
+    ],
+    "interactionStyle": "respond"
+  }
+}

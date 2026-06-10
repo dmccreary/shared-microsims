@@ -1,0 +1,81 @@
+{
+  "title": "AI Task Completion Time Horizons",
+  "description": "Interactive visualization showing how long different AI models can work on tasks before failing, based on METR's research on measuring AI ability to complete long tasks.",
+  "creator": "Dan McCreary",
+  "date": "2025-01-01",
+  "subject": [
+    "AI Capabilities",
+    "Task Completion",
+    "AI Benchmarks",
+    "METR Research",
+    "Model Comparison"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "publisher": "Dan McCreary",
+  "educationalLevel": "Professional",
+  "learningResourceType": "simulation",
+  "audience": "AI Researchers, Developers, Strategists",
+  "version": "1.0.0",
+  "bloomLevel": [
+    "Understand",
+    "Analyze"
+  ],
+  "concepts": [
+    "Task Horizons",
+    "Model Performance",
+    "Success Probability",
+    "Frontier Models"
+  ],
+  "prerequisites": [
+    "Basic understanding of AI models"
+  ],
+  "library": "Chart.js",
+  "visualizationType": [
+    "chart",
+    "diagram",
+    "graph",
+    "interactive-demo",
+    "map",
+    "simulation",
+    "timeline"
+  ],
+  "learningObjectives": [
+    "Understand the key concepts of ai task completion time horizons",
+    "Explore ai task completion time horizons through interactive visualization",
+    "Apply knowledge of ai task completion time horizons to solve problems",
+    "Experiment with parameters to observe their effects on ai task completion time horizons"
+  ],
+  "bloomsTaxonomy": [
+    "Remember",
+    "Understand",
+    "Apply",
+    "Evaluate",
+    "Create"
+  ],
+  "pedagogical": {
+    "pattern": "reference",
+    "bloomAlignment": [
+      "understand",
+      "apply",
+      "analyze"
+    ],
+    "bloomVerbs": [
+      "classify",
+      "compare",
+      "interpret",
+      "summarize",
+      "demonstrate"
+    ],
+    "pacing": "self-paced",
+    "supportsPrediction": true,
+    "dataVisibility": "medium",
+    "feedbackType": [
+      "immediate",
+      "explanatory"
+    ],
+    "interactionStyle": "observe"
+  }
+}

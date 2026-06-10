@@ -1,0 +1,73 @@
+{
+  "metadata": {
+    "id": "autonomous-research-cld",
+    "title": "Autonomous Research (R2)",
+    "archetype": "limits-to-growth",
+    "description": "The supercritical loop: when the model itself can design, run, and interpret ML experiments, the research loop closes inside the company and decouples from human pace.",
+    "version": "1.0.0",
+    "created_date": "2026-05-05",
+    "author": "Tracking AI Course",
+    "tags": ["ai", "autonomous-research", "reinforcing-loop", "supercritical"]
+  },
+  "nodes": [
+    {
+      "id": "model_capability",
+      "label": "Model Capability",
+      "position": {"x": 300, "y": 120},
+      "type": "stock",
+      "description": "Aggregate quality of the frontier model."
+    },
+    {
+      "id": "autonomous_research",
+      "label": "Autonomous Research",
+      "position": {"x": 480, "y": 420},
+      "type": "variable",
+      "description": "The model's ability to design, run, and interpret its own ML experiments without a human in the loop."
+    },
+    {
+      "id": "architecture_discovery",
+      "label": "Architecture Discovery",
+      "position": {"x": 120, "y": 420},
+      "type": "variable",
+      "description": "Rate at which novel model architectures, training recipes, and optimizations are found."
+    }
+  ],
+  "edges": [
+    {
+      "id": "mc_to_ar",
+      "source": "model_capability",
+      "target": "autonomous_research",
+      "polarity": "positive",
+      "description": "More capable models can run more of their own research.",
+      "strength": "strong"
+    },
+    {
+      "id": "ar_to_ad",
+      "source": "autonomous_research",
+      "target": "architecture_discovery",
+      "polarity": "positive",
+      "description": "Autonomous experimentation finds new architectures faster than human researchers can.",
+      "strength": "strong"
+    },
+    {
+      "id": "ad_to_mc",
+      "source": "architecture_discovery",
+      "target": "model_capability",
+      "polarity": "positive",
+      "description": "New architectures and training recipes raise capability.",
+      "strength": "strong"
+    }
+  ],
+  "loops": [
+    {
+      "id": "R2",
+      "type": "reinforcing",
+      "label": "R2: Autonomous Research (Supercritical)",
+      "description": "If this loop becomes self-sustaining, iteration speed exceeds the rate at which competitors can copy.",
+      "path": ["model_capability", "autonomous_research", "architecture_discovery", "model_capability"],
+      "behavior_pattern": "Phase transition to internally self-sustaining capability growth.",
+      "position": {"x": 300, "y": 320},
+      "is_primary": true
+    }
+  ]
+}

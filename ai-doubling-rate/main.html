@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Task Completion Time Horizons</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fff;
+            padding: 10px;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f5f5f5;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        .control-group label {
+            font-size: 13px;
+            color: #555;
+            font-weight: 500;
+        }
+        .toggle-btn {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            background: #fff;
+            cursor: pointer;
+            font-size: 12px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .toggle-btn:hover {
+            background: #e8e8e8;
+        }
+        .toggle-btn.active {
+            background: #2196F3;
+            color: white;
+            border-color: #2196F3;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .subtitle a {
+            color: #2196F3;
+            text-decoration: none;
+        }
+        .subtitle a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <div class="control-group">
+            <label>Y-Axis Scale:</label>
+            <button class="toggle-btn" id="linearBtn" onclick="setScale('linear')">Linear</button>
+            <button class="toggle-btn active" id="logBtn" onclick="setScale('log')">Logarithmic</button>
+        </div>
+        <div class="control-group">
+            <label>Success Rate:</label>
+            <button class="toggle-btn active" id="p50Btn" onclick="setMetric('p50')">50%</button>
+            <button class="toggle-btn" id="p80Btn" onclick="setMetric('p80')">80%</button>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="horizonChart"></canvas>
+    </div>
+
+    <p class="subtitle">Data from <a href="https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/" target="_blank">METR.org</a> - Task horizon doubling approximately every 7 months</p>
+
+    <script>
+        // Complete METR benchmark data
+        const metrData = [
+            { model: "GPT-2", date: "2019-02-14", p50: 0.039762, p50_low: 0.001939, p50_high: 0.130415, p80: 0.005652, p80_low: 0.000134, p80_high: 0.027466 },
+            { model: "davinci-002", date: "2020-05-28", p50: 0.148793, p50_low: 0.06737, p50_high: 0.244214, p80: 0.034139, p80_low: 0.01249, p80_high: 0.063065 },
+            { model: "GPT-3.5", date: "2022-03-15", p50: 0.604245, p50_low: 0.258326, p50_high: 1.014481, p80: 0.1731, p80_low: 0.05824, p80_high: 0.296838 },
+            { model: "GPT-4", date: "2023-03-14", p50: 5.35186, p50_low: 2.515004, p50_high: 10.267319, p80: 0.965652, p80_low: 0.365612, p80_high: 2.233331 },
+            { model: "GPT-4 Turbo", date: "2023-11-06", p50: 8.525919, p50_low: 4.083815, p50_high: 16.377055, p80: 1.452328, p80_low: 0.582505, p80_high: 3.487353 },
+            { model: "Claude 3 Opus", date: "2024-03-04", p50: 6.405197, p50_low: 2.90612, p50_high: 12.897461, p80: 1.125839, p80_low: 0.427, p80_high: 2.824986 },
+            { model: "GPT-4o", date: "2024-05-13", p50: 9.178848, p50_low: 4.424494, p50_high: 18.25284, p80: 1.676437, p80_low: 0.715974, p80_high: 3.860568 },
+            { model: "Claude 3.5 Sonnet", date: "2024-06-20", p50: 18.683233, p50_low: 9.466023, p50_high: 34.387194, p80: 3.145649, p80_low: 1.306563, p80_high: 7.063943 },
+            { model: "o1-preview", date: "2024-09-12", p50: 21.960172, p50_low: 11.401374, p50_high: 38.631113, p80: 4.609009, p80_low: 2.039112, p80_high: 9.432596 },
+            { model: "Claude 3.5 Sonnet v2", date: "2024-10-22", p50: 29.575983, p50_low: 14.031849, p50_high: 59.058879, p80: 4.595975, p80_low: 1.718093, p80_high: 11.075156 },
+            { model: "o1", date: "2024-12-05", p50: 41.05291, p50_low: 17.57554, p50_high: 82.905448, p80: 6.071816, p80_low: 1.902054, p80_high: 16.665466 },
+            { model: "DeepSeek V3", date: "2024-12-26", p50: 18.484012, p50_low: 9.008161, p50_high: 33.901815, p80: 3.843563, p80_low: 1.527662, p80_high: 8.571598 },
+            { model: "DeepSeek R1", date: "2025-01-20", p50: 26.923538, p50_low: 13.49502, p50_high: 50.923844, p80: 4.337051, p80_low: 1.786525, p80_high: 9.756762 },
+            { model: "Claude 3.7 Sonnet", date: "2025-02-24", p50: 56.09162, p50_low: 29.33067, p50_high: 93.424004, p80: 15.226294, p80_low: 6.032292, p80_high: 31.035012 },
+            { model: "o3", date: "2025-04-16", p50: 94.005541, p50_low: 48.011179, p50_high: 166.825336, p80: 21.431305, p80_low: 7.922786, p80_high: 48.234031 },
+            { model: "o4-mini", date: "2025-04-16", p50: 78.591387, p50_low: 36.901739, p50_high: 154.6773, p80: 15.941371, p80_low: 5.56953, p80_high: 38.680785 },
+            { model: "Claude 4 Opus", date: "2025-05-22", p50: 85.556627, p50_low: 45.062156, p50_high: 146.803709, p80: 20.879157, p80_low: 7.853497, p80_high: 44.099938 },
+            { model: "Claude 4 Sonnet", date: "2025-05-22", p50: 74.942015, p50_low: 37.850721, p50_high: 133.985642, p80: 17.088888, p80_low: 6.26905, p80_high: 36.743467 },
+            { model: "Gemini 2.5 Pro", date: "2025-06-05", p50: 39.527421, p50_low: 19.978577, p50_high: 70.560939, p80: 9.308417, p80_low: 3.842313, p80_high: 19.93351 },
+            { model: "Grok 4", date: "2025-07-09", p50: 109.172956, p50_low: 48.077568, p50_high: 231.789541, p80: 15.296487, p80_low: 4.372209, p80_high: 42.591772 },
+            { model: "Claude 4.1 Opus", date: "2025-08-05", p50: 113.68507, p50_low: 57.552638, p50_high: 209.192356, p80: 21.891731, p80_low: 7.519347, p80_high: 49.261019 },
+            { model: "GPT-5", date: "2025-08-07", p50: 137.735311, p50_low: 67.141734, p50_high: 272.794289, p80: 26.566128, p80_low: 8.821782, p80_high: 63.553851 },
+            { model: "Claude Sonnet 4.5", date: "2025-09-29", p50: 121.946588, p50_low: 56.041225, p50_high: 254.328258, p80: 21.179254, p80_low: 6.68528, p80_high: 53.079511 },
+            { model: "GPT-5.1 Codex", date: "2025-11-19", p50: 173.253623, p50_low: 78.787471, p50_high: 378.398454, p80: 32.349982, p80_low: 9.497828, p80_high: 84.563312 },
+            { model: "Claude Opus 4.5", date: "2025-11-24", p50: 288.904952, p50_low: 108.873592, p50_high: 1225.190511, p80: 27.159829, p80_low: 6.887202, p80_high: 85.811317 }
+        ];
+
+        let currentScale = 'log';
+        let currentMetric = 'p50';
+        let chart;
+
+        function getDatasets(metric) {
+            const mainKey = metric;
+            const lowKey = metric + '_low';
+            const highKey = metric + '_high';
+            const color = metric === 'p50' ? 'rgb(33, 150, 243)' : 'rgb(76, 175, 80)';
+            const bgColor = metric === 'p50' ? 'rgba(33, 150, 243, 0.15)' : 'rgba(76, 175, 80, 0.15)';
+
+            return [
+                {
+                    label: metric === 'p50' ? '50% Success Horizon' : '80% Success Horizon',
+                    data: metrData.map(d => ({ x: new Date(d.date), y: d[mainKey] })),
+                    borderColor: color,
+                    backgroundColor: color,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    borderWidth: 2,
+                    tension: 0.1,
+                    order: 1
+                },
+                {
+                    label: '95% Confidence Interval',
+                    data: metrData.map(d => ({ x: new Date(d.date), y: d[highKey] })),
+                    borderColor: 'transparent',
+                    backgroundColor: bgColor,
+                    fill: '+1',
+                    pointRadius: 0,
+                    borderWidth: 0,
+                    order: 2
+                },
+                {
+                    label: 'CI Lower',
+                    data: metrData.map(d => ({ x: new Date(d.date), y: d[lowKey] })),
+                    borderColor: 'transparent',
+                    backgroundColor: 'transparent',
+                    pointRadius: 0,
+                    borderWidth: 0,
+                    order: 3
+                }
+            ];
+        }
+
+        function formatMinutes(minutes) {
+            if (minutes < 1) return (minutes * 60).toFixed(1) + ' sec';
+            if (minutes < 60) return minutes.toFixed(1) + ' min';
+            if (minutes < 1440) return (minutes / 60).toFixed(1) + ' hrs';
+            return (minutes / 1440).toFixed(1) + ' days';
+        }
+
+        function createChart() {
+            const ctx = document.getElementById('horizonChart').getContext('2d');
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: getDatasets(currentMetric)
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    aspectRatio: 1.6,
+                    interaction: {
+                        mode: 'nearest',
+                        intersect: false
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'AI Task Completion Time Horizons',
+                            font: { size: 18, weight: 'bold' },
+                            padding: { bottom: 5 }
+                        },
+                        subtitle: {
+                            display: true,
+                            text: currentMetric === 'p50' ? '50% Success Rate' : '80% Success Rate',
+                            font: { size: 13 },
+                            color: '#666',
+                            padding: { bottom: 10 }
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                filter: (item) => item.text !== 'CI Lower',
+                                usePointStyle: true,
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: (items) => {
+                                    if (items.length === 0) return '';
+                                    const idx = items[0].dataIndex;
+                                    return metrData[idx].model;
+                                },
+                                label: (context) => {
+                                    if (context.datasetIndex !== 0) return null;
+                                    const idx = context.dataIndex;
+                                    const d = metrData[idx];
+                                    const key = currentMetric;
+                                    return [
+                                        `Date: ${d.date}`,
+                                        `Horizon: ${formatMinutes(d[key])}`,
+                                        `95% CI: ${formatMinutes(d[key + '_low'])} - ${formatMinutes(d[key + '_high'])}`
+                                    ];
+                                }
+                            },
+                            filter: (item) => item.datasetIndex === 0
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'year',
+                                displayFormats: { year: 'yyyy' }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Release Date',
+                                font: { weight: 'bold' }
+                            },
+                            grid: { color: 'rgba(0,0,0,0.05)' }
+                        },
+                        y: {
+                            type: currentScale === 'log' ? 'logarithmic' : 'linear',
+                            title: {
+                                display: true,
+                                text: 'Task Horizon (minutes)',
+                                font: { weight: 'bold' }
+                            },
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            ticks: {
+                                callback: function(value) {
+                                    return formatMinutes(value);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function setScale(scale) {
+            currentScale = scale;
+            document.getElementById('linearBtn').classList.toggle('active', scale === 'linear');
+            document.getElementById('logBtn').classList.toggle('active', scale === 'log');
+            chart.options.scales.y.type = scale === 'log' ? 'logarithmic' : 'linear';
+            chart.update();
+        }
+
+        function setMetric(metric) {
+            currentMetric = metric;
+            document.getElementById('p50Btn').classList.toggle('active', metric === 'p50');
+            document.getElementById('p80Btn').classList.toggle('active', metric === 'p80');
+            chart.data.datasets = getDatasets(metric);
+            chart.options.plugins.subtitle.text = metric === 'p50' ? '50% Success Rate' : '80% Success Rate';
+            chart.update();
+        }
+
+        createChart();
+    </script>
+</body>
+</html>
+

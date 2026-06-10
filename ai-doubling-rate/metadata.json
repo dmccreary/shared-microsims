@@ -1,0 +1,78 @@
+{
+  "title": "AI Doubling Rate",
+  "description": "Analysis and visualization of the time of doubling for AI task completion capabilities, based on METR research showing a 7-month doubling rate.",
+  "creator": "Dan McCreary",
+  "date": "2025-01-01",
+  "subject": [
+    "AI Growth Rate",
+    "Exponential Growth",
+    "METR Research",
+    "AI Capabilities"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "publisher": "Dan McCreary",
+  "educationalLevel": "Professional",
+  "learningResourceType": "simulation",
+  "audience": "AI Strategists, Researchers, Executives",
+  "version": "1.0.0",
+  "bloomLevel": [
+    "Understand",
+    "Analyze"
+  ],
+  "concepts": [
+    "Doubling Rate",
+    "Exponential Growth",
+    "Task Completion"
+  ],
+  "prerequisites": [
+    "Basic understanding of AI capabilities"
+  ],
+  "library": "p5.js",
+  "visualizationType": [
+    "chart",
+    "graph",
+    "interactive-demo",
+    "map",
+    "simulation"
+  ],
+  "learningObjectives": [
+    "Understand the key concepts of ai doubling rate",
+    "Explore ai doubling rate through interactive visualization",
+    "Apply knowledge of ai doubling rate to solve problems",
+    "Test understanding of ai doubling rate through interactive exercises"
+  ],
+  "bloomsTaxonomy": [
+    "Remember",
+    "Understand",
+    "Apply",
+    "Evaluate",
+    "Create"
+  ],
+  "pedagogical": {
+    "pattern": "reference",
+    "bloomAlignment": [
+      "understand",
+      "apply",
+      "evaluate"
+    ],
+    "bloomVerbs": [
+      "classify",
+      "interpret",
+      "apply",
+      "calculate",
+      "implement"
+    ],
+    "pacing": "self-paced",
+    "supportsPrediction": false,
+    "dataVisibility": "medium",
+    "feedbackType": [
+      "immediate",
+      "corrective",
+      "explanatory"
+    ],
+    "interactionStyle": "observe"
+  }
+}

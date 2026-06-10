@@ -1,0 +1,86 @@
+{
+  "title": "AI Capability Maturity Model Infographic",
+  "description": "Interactive infographic showing the five levels of AI organizational maturity from Ad Hoc to Transformative, with detailed descriptions of each stage.",
+  "creator": "Dan McCreary",
+  "date": "2025-01-01",
+  "subject": [
+    "AI Maturity Model",
+    "Organizational Readiness",
+    "AI Strategy",
+    "Capability Assessment",
+    "Digital Transformation"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "publisher": "Dan McCreary",
+  "educationalLevel": "Professional",
+  "learningResourceType": "simulation",
+  "audience": "AI Strategy Committees, Business Leaders",
+  "version": "1.0.0",
+  "bloomLevel": [
+    "Understand",
+    "Analyze",
+    "Evaluate"
+  ],
+  "concepts": [
+    "Maturity Models",
+    "AI Readiness",
+    "Organizational Assessment",
+    "Strategic Planning",
+    "AI Adoption"
+  ],
+  "prerequisites": [
+    "Understanding of organizational processes",
+    "Basic AI concepts"
+  ],
+  "library": "p5.js",
+  "visualizationType": [
+    "animation",
+    "data-visualization",
+    "graph",
+    "interactive-demo",
+    "map",
+    "network",
+    "simulation",
+    "timeline"
+  ],
+  "learningObjectives": [
+    "Understand the key concepts of ai capability maturity model infographic",
+    "Explore ai capability maturity model infographic through interactive visualization",
+    "Apply knowledge of ai capability maturity model infographic to solve problems",
+    "Experiment with parameters to observe their effects on ai capability maturity model infographic"
+  ],
+  "bloomsTaxonomy": [
+    "Remember",
+    "Understand",
+    "Apply",
+    "Analyze",
+    "Evaluate",
+    "Create"
+  ],
+  "pedagogical": {
+    "pattern": "assessment",
+    "bloomAlignment": [
+      "understand",
+      "apply",
+      "analyze"
+    ],
+    "bloomVerbs": [
+      "classify",
+      "compare",
+      "describe",
+      "calculate",
+      "demonstrate"
+    ],
+    "pacing": "step-through",
+    "supportsPrediction": true,
+    "dataVisibility": "high",
+    "feedbackType": [
+      "immediate",
+      "explanatory"
+    ],
+    "interactionStyle": "respond"
+  }
+}

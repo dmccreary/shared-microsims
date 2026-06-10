@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+  <title>Deep Learning Timeline (1935-2025)</title>
+  <script type="text/javascript" src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+  <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+  <style type="text/css">
+    #visualization {
+      width: 90%;
+      height: 600px;
+      border: 1px solid lightgray;
+      margin: 0 auto;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<h1>Key Events in Deep Learning History (1935-2025)</h1>
+<div id="visualization"></div>
+
+<script type="text/javascript">
+  // DOM element where the Timeline will be attached
+  var container = document.getElementById('visualization');
+
+  // Fetch timeline data from external JSON file
+  fetch('items.json')
+    .then(response => response.json())
+    .then(data => {
+      // Create a DataSet (allows two way data-binding) using the fetched data
+      var items = new vis.DataSet(data);
+
+      // Configuration for the Timeline
+      var options = {
+        // Restrict the timeline's visible window (and scrolling) to 1935 - 2025
+        min: "1935-01-01",
+        max: "2025-12-31",
+        start: "1935-01-01",
+        end: "2025-12-31",
+        stack: true,
+        maxHeight: '90%',
+        minHeight: '500px',
+        margin: {
+          item: 10,
+          axis: 10
+        }
+      };
+
+      // Create and render the Timeline
+      var timeline = new vis.Timeline(container, items, options);
+    })
+    .catch(error => {
+      console.error('Error loading timeline data:', error);
+    });
+</script>
+</body>
+</html>

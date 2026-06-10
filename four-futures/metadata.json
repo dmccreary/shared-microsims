@@ -1,0 +1,75 @@
+{
+  "title": "Four AI Futures MicroSim",
+  "description": "Interactive line chart showing four possible future scenarios for AI development: Growth and Decline, Growth and Flattening, Linear Growth, and Exponential Growth.",
+  "creator": "Dan McCreary",
+  "date": "2025-01-01",
+  "subject": [
+    "AI Futures",
+    "Scenario Planning",
+    "Technology Forecasting",
+    "Growth Patterns"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "publisher": "Dan McCreary",
+  "educationalLevel": "High School",
+  "learningResourceType": "simulation",
+  "audience": "Students, Strategists, Policy Makers",
+  "version": "1.0.0",
+  "bloomLevel": [
+    "Understand",
+    "Analyze",
+    "Evaluate"
+  ],
+  "concepts": [
+    "Exponential Growth",
+    "Linear Growth",
+    "Scenario Planning",
+    "Technology Forecasting"
+  ],
+  "prerequisites": [],
+  "library": "p5.js",
+  "visualizationType": [
+    "chart",
+    "graph",
+    "interactive-demo",
+    "map",
+    "network"
+  ],
+  "learningObjectives": [
+    "Understand the key concepts of four ai futures",
+    "Explore four ai futures through interactive visualization",
+    "Apply knowledge of four ai futures to solve problems"
+  ],
+  "bloomsTaxonomy": [
+    "Remember",
+    "Understand",
+    "Apply",
+    "Create"
+  ],
+  "pedagogical": {
+    "pattern": "reference",
+    "bloomAlignment": [
+      "understand",
+      "apply",
+      "evaluate"
+    ],
+    "bloomVerbs": [
+      "describe",
+      "calculate",
+      "use",
+      "assess",
+      "evaluate"
+    ],
+    "pacing": "self-paced",
+    "supportsPrediction": true,
+    "dataVisibility": "medium",
+    "feedbackType": [
+      "immediate",
+      "corrective"
+    ],
+    "interactionStyle": "construct"
+  }
+}

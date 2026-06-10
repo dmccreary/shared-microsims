@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "id": "diffusion-cld",
+    "title": "Diffusion / Fast-Follow (B3)",
+    "archetype": "limits-to-growth",
+    "description": "Even when AI writes most of the code, ideas still propagate. Papers leak, employees move, prompts get exfiltrated, and inference traces get reverse-engineered. The leader's relative advantage decays continuously.",
+    "version": "1.0.0",
+    "created_date": "2026-05-05",
+    "author": "Tracking AI Course",
+    "tags": ["ai", "diffusion", "balancing-loop", "fast-follow", "moat-decay"]
+  },
+  "nodes": [
+    {
+      "id": "model_capability",
+      "label": "Model Capability",
+      "position": {"x": 300, "y": 120},
+      "type": "stock",
+      "description": "Aggregate quality of the leader's frontier model."
+    },
+    {
+      "id": "visibility",
+      "label": "Visibility / Reverse Engineering",
+      "position": {"x": 500, "y": 320},
+      "type": "variable",
+      "description": "How much of a leader's breakthrough leaks via papers, employee mobility, prompts, and inference traces."
+    },
+    {
+      "id": "competitor_adoption",
+      "label": "Competitor Adoption",
+      "position": {"x": 300, "y": 500},
+      "type": "variable",
+      "description": "How quickly rival labs implement and ship the leader's techniques."
+    },
+    {
+      "id": "relative_advantage",
+      "label": "Relative Advantage",
+      "position": {"x": 100, "y": 320},
+      "type": "variable",
+      "description": "Capability gap between the leader and the next-best lab."
+    }
+  ],
+  "edges": [
+    {
+      "id": "mc_to_vis",
+      "source": "model_capability",
+      "target": "visibility",
+      "polarity": "positive",
+      "description": "Visible capability invites reverse engineering and talent flow.",
+      "strength": "strong"
+    },
+    {
+      "id": "vis_to_ca",
+      "source": "visibility",
+      "target": "competitor_adoption",
+      "polarity": "positive",
+      "description": "What's visible gets copied.",
+      "strength": "strong"
+    },
+    {
+      "id": "ca_to_ra",
+      "source": "competitor_adoption",
+      "target": "relative_advantage",
+      "polarity": "negative",
+      "description": "Fast-following competitors close the capability gap.",
+      "strength": "strong"
+    },
+    {
+      "id": "ra_to_mc",
+      "source": "relative_advantage",
+      "target": "model_capability",
+      "polarity": "positive",
+      "description": "A larger relative advantage protects the leader's continued capability investment.",
+      "strength": "moderate"
+    }
+  ],
+  "loops": [
+    {
+      "id": "B3",
+      "type": "balancing",
+      "label": "B3: Diffusion / Fast-Follow",
+      "description": "Why every previous 'permanent moat' claim in software has eventually collapsed — the faster the leader moves, the more visible the breakthrough.",
+      "path": ["model_capability", "visibility", "competitor_adoption", "relative_advantage", "model_capability"],
+      "behavior_pattern": "Continuous decay of the leader's advantage through diffusion.",
+      "position": {"x": 300, "y": 320},
+      "is_primary": true
+    }
+  ]
+}

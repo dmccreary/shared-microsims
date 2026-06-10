@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "id": "data-flywheel-cld",
+    "title": "Data Flywheel (R4)",
+    "archetype": "limits-to-growth",
+    "description": "Adoption produces proprietary interaction data — agent traces, preferences, error corrections — that competitors cannot see. The lock-in mechanism most likely to tip the system to a single winner.",
+    "version": "1.0.0",
+    "created_date": "2026-05-05",
+    "author": "Tracking AI Course",
+    "tags": ["ai", "data-flywheel", "reinforcing-loop", "lock-in", "moat"]
+  },
+  "nodes": [
+    {
+      "id": "model_capability",
+      "label": "Model Capability",
+      "position": {"x": 300, "y": 150},
+      "type": "stock",
+      "description": "Aggregate quality of the frontier model."
+    },
+    {
+      "id": "user_adoption",
+      "label": "User Adoption",
+      "position": {"x": 480, "y": 320},
+      "type": "variable",
+      "description": "Number of active users, agents, and enterprise integrations running on the model."
+    },
+    {
+      "id": "proprietary_data",
+      "label": "Proprietary Interaction Data",
+      "position": {"x": 300, "y": 490},
+      "type": "stock",
+      "description": "Private signal from real-world usage: traces, preferences, error corrections — not available to competitors."
+    },
+    {
+      "id": "training_signal",
+      "label": "Training Signal Quality",
+      "position": {"x": 120, "y": 320},
+      "type": "variable",
+      "description": "Quality of the data used to fine-tune and post-train the model."
+    }
+  ],
+  "edges": [
+    {
+      "id": "mc_to_ua",
+      "source": "model_capability",
+      "target": "user_adoption",
+      "polarity": "positive",
+      "description": "Better models attract more users and agents.",
+      "strength": "strong"
+    },
+    {
+      "id": "ua_to_pd",
+      "source": "user_adoption",
+      "target": "proprietary_data",
+      "polarity": "positive",
+      "description": "Real usage produces unique training signal that did not exist before.",
+      "strength": "strong"
+    },
+    {
+      "id": "pd_to_ts",
+      "source": "proprietary_data",
+      "target": "training_signal",
+      "polarity": "positive",
+      "description": "Proprietary data raises the quality of the training signal.",
+      "strength": "strong"
+    },
+    {
+      "id": "ts_to_mc",
+      "source": "training_signal",
+      "target": "model_capability",
+      "polarity": "positive",
+      "description": "Better training signal raises model capability.",
+      "strength": "strong"
+    }
+  ],
+  "loops": [
+    {
+      "id": "R4",
+      "type": "reinforcing",
+      "label": "R4: Data Flywheel",
+      "description": "Public benchmarks plateau; private data flywheels do not. Even if a competitor matches the architecture, they cannot match the data trail.",
+      "path": ["model_capability", "user_adoption", "proprietary_data", "training_signal", "model_capability"],
+      "behavior_pattern": "Compounding capability advantage invisible to competitors.",
+      "position": {"x": 300, "y": 320},
+      "is_primary": true
+    }
+  ]
+}

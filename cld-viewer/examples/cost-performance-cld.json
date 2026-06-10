@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "id": "cost-performance-cld",
+    "title": "Cost-Performance Friction (B4)",
+    "archetype": "limits-to-growth",
+    "description": "The frontier model is not always the most-used model. As capability rises, so does inference cost. Most production agents route to a cheaper 'good-enough' model, which chokes the data flywheel for the leader.",
+    "version": "1.0.0",
+    "created_date": "2026-05-05",
+    "author": "Tracking AI Course",
+    "tags": ["ai", "inference-cost", "balancing-loop", "economic-friction"]
+  },
+  "nodes": [
+    {
+      "id": "model_capability",
+      "label": "Model Capability",
+      "position": {"x": 300, "y": 120},
+      "type": "stock",
+      "description": "Aggregate quality of the frontier model."
+    },
+    {
+      "id": "inference_cost",
+      "label": "Inference Cost",
+      "position": {"x": 500, "y": 320},
+      "type": "variable",
+      "description": "Per-token cost to run the frontier model in production."
+    },
+    {
+      "id": "user_adoption",
+      "label": "User Adoption",
+      "position": {"x": 300, "y": 500},
+      "type": "variable",
+      "description": "Number of active users, agents, and enterprise integrations running on the frontier model."
+    },
+    {
+      "id": "feedback_data",
+      "label": "Feedback Data",
+      "position": {"x": 100, "y": 320},
+      "type": "variable",
+      "description": "Volume and richness of real-world training signal feeding back into the model."
+    }
+  ],
+  "edges": [
+    {
+      "id": "mc_to_ic",
+      "source": "model_capability",
+      "target": "inference_cost",
+      "polarity": "positive",
+      "description": "Bigger, better frontier models cost more per token to serve.",
+      "strength": "strong"
+    },
+    {
+      "id": "ic_to_ua",
+      "source": "inference_cost",
+      "target": "user_adoption",
+      "polarity": "negative",
+      "description": "Higher inference cost suppresses adoption — production agents route to cheaper 'good-enough' models.",
+      "strength": "strong"
+    },
+    {
+      "id": "ua_to_fd",
+      "source": "user_adoption",
+      "target": "feedback_data",
+      "polarity": "positive",
+      "description": "More usage produces more feedback data.",
+      "strength": "strong"
+    },
+    {
+      "id": "fd_to_mc",
+      "source": "feedback_data",
+      "target": "model_capability",
+      "polarity": "positive",
+      "description": "Feedback data improves the model — which is exactly what gets choked off when adoption falls.",
+      "strength": "strong"
+    }
+  ],
+  "loops": [
+    {
+      "id": "B4",
+      "type": "balancing",
+      "label": "B4: Cost-Performance Friction",
+      "description": "The cheapest competent model often beats the smartest expensive one in market terms — a real-world counterweight to the runaway hypothesis.",
+      "path": ["model_capability", "inference_cost", "user_adoption", "feedback_data", "model_capability"],
+      "behavior_pattern": "Self-limiting capability growth through unit economics.",
+      "position": {"x": 300, "y": 320},
+      "is_primary": true
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "title": "MMLU Timeline MicroSim",
+  "description": "Interactive visualization showing the progress of AI models on the MMLU (Massive Multitask Language Understanding) benchmark from 2020 to present.",
+  "creator": "Dan McCreary",
+  "date": "2025-01-01",
+  "subject": [
+    "MMLU Benchmark",
+    "AI Benchmarks",
+    "Language Models",
+    "AI Progress"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "publisher": "Dan McCreary",
+  "educationalLevel": "Professional",
+  "learningResourceType": "simulation",
+  "audience": "AI Researchers, Developers",
+  "version": "1.0.0",
+  "bloomLevel": [
+    "Understand",
+    "Analyze"
+  ],
+  "concepts": [
+    "MMLU Benchmark",
+    "Model Performance",
+    "AI Progress"
+  ],
+  "prerequisites": [
+    "Basic understanding of AI benchmarks"
+  ],
+  "library": "p5.js",
+  "visualizationType": [
+    "animation",
+    "chart",
+    "graph",
+    "interactive-demo",
+    "map",
+    "network",
+    "simulation",
+    "timeline"
+  ],
+  "learningObjectives": [
+    "Understand the key concepts of mmlu timeline",
+    "Explore mmlu timeline through interactive visualization",
+    "Apply knowledge of mmlu timeline to solve problems",
+    "Experiment with parameters to observe their effects on mmlu timeline"
+  ],
+  "bloomsTaxonomy": [
+    "Remember",
+    "Understand",
+    "Apply",
+    "Create"
+  ],
+  "pedagogical": {
+    "pattern": "assessment",
+    "bloomAlignment": [
+      "understand",
+      "apply",
+      "evaluate"
+    ],
+    "bloomVerbs": [
+      "classify",
+      "compare",
+      "illustrate",
+      "use",
+      "assess"
+    ],
+    "pacing": "self-paced",
+    "supportsPrediction": false,
+    "dataVisibility": "medium",
+    "feedbackType": [
+      "immediate",
+      "corrective",
+      "explanatory"
+    ],
+    "interactionStyle": "construct"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "title": "Causes of AI Acceleration",
+  "description": "A causal loop diagram showing how AI feedback loops are accelerating AI progress through training data, new algorithms, and better hardware.",
+  "creator": "Dan McCreary",
+  "date": "2025-01-01",
+  "subject": [
+    "AI Acceleration",
+    "Causal Loop Diagram",
+    "Systems Thinking",
+    "Feedback Loops",
+    "AI Strategy"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "publisher": "Dan McCreary",
+  "educationalLevel": "Professional",
+  "learningResourceType": "simulation",
+  "audience": "AI Strategy Planners, Business Executives",
+  "version": "1.0.0",
+  "bloomLevel": [
+    "Understand",
+    "Analyze",
+    "Evaluate"
+  ],
+  "concepts": [
+    "Positive Feedback Loops",
+    "AI Training Data",
+    "Algorithm Development",
+    "Hardware Improvement",
+    "Systems Thinking"
+  ],
+  "prerequisites": [
+    "Basic understanding of AI concepts",
+    "Familiarity with systems thinking"
+  ],
+  "library": "p5.js",
+  "visualizationType": [
+    "3d-model",
+    "animation",
+    "diagram",
+    "graph",
+    "interactive-demo",
+    "map",
+    "network",
+    "simulation",
+    "timeline"
+  ],
+  "learningObjectives": [
+    "Understand the key concepts of causes of ai acceleration",
+    "Explore causes of ai acceleration through interactive visualization",
+    "Apply knowledge of causes of ai acceleration to solve problems",
+    "Experiment with parameters to observe their effects on causes of ai acceleration"
+  ],
+  "bloomsTaxonomy": [
+    "Remember",
+    "Understand",
+    "Apply",
+    "Analyze",
+    "Evaluate",
+    "Create"
+  ],
+  "pedagogical": {
+    "pattern": "assessment",
+    "bloomAlignment": [
+      "understand",
+      "apply",
+      "analyze"
+    ],
+    "bloomVerbs": [
+      "classify",
+      "compare",
+      "describe",
+      "explain",
+      "summarize"
+    ],
+    "pacing": "self-paced",
+    "supportsPrediction": true,
+    "dataVisibility": "high",
+    "feedbackType": [
+      "immediate",
+      "corrective",
+      "explanatory"
+    ],
+    "interactionStyle": "manipulate"
+  }
+}

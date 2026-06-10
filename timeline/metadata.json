@@ -1,0 +1,76 @@
+{
+  "title": "Deep Learning Timeline MicroSim",
+  "description": "Interactive timeline showing over 100 key events in the field of Deep Learning from 1935 to present day.",
+  "creator": "Dan McCreary",
+  "date": "2025-01-01",
+  "subject": [
+    "Deep Learning History",
+    "AI History",
+    "Neural Networks",
+    "Machine Learning"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "publisher": "Dan McCreary",
+  "educationalLevel": "High School",
+  "learningResourceType": "simulation",
+  "audience": "Students, Educators, AI Enthusiasts",
+  "version": "1.0.0",
+  "bloomLevel": [
+    "Remember",
+    "Understand"
+  ],
+  "concepts": [
+    "Deep Learning History",
+    "Neural Network Development",
+    "AI Milestones"
+  ],
+  "prerequisites": [],
+  "library": "vis-timeline",
+  "visualizationType": [
+    "graph",
+    "interactive-demo",
+    "map",
+    "network",
+    "simulation",
+    "timeline"
+  ],
+  "learningObjectives": [
+    "Understand the key concepts of deep learning timeline",
+    "Explore deep learning timeline through interactive visualization",
+    "Apply knowledge of deep learning timeline to solve problems",
+    "Experiment with parameters to observe their effects on deep learning timeline"
+  ],
+  "bloomsTaxonomy": [
+    "Remember",
+    "Apply",
+    "Analyze",
+    "Create"
+  ],
+  "pedagogical": {
+    "pattern": "demonstration",
+    "bloomAlignment": [
+      "apply",
+      "analyze",
+      "evaluate"
+    ],
+    "bloomVerbs": [
+      "calculate",
+      "demonstrate",
+      "illustrate",
+      "implement",
+      "solve"
+    ],
+    "pacing": "self-paced",
+    "supportsPrediction": true,
+    "dataVisibility": "medium",
+    "feedbackType": [
+      "immediate",
+      "delayed",
+      "explanatory"
+    ],
+    "interactionStyle": "respond"
+  }
+}

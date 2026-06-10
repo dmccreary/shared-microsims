@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "id": "compute-constraint-cld",
+    "title": "Compute Constraint (B1)",
+    "archetype": "limits-to-growth",
+    "description": "Pushing capability raises compute demand, which raises scarcity and cost, which throttles capability growth — for everyone, including the leader.",
+    "version": "1.0.0",
+    "created_date": "2026-05-05",
+    "author": "Tracking AI Course",
+    "tags": ["ai", "compute", "balancing-loop", "constraint", "physical-limit"]
+  },
+  "nodes": [
+    {
+      "id": "model_capability",
+      "label": "Model Capability",
+      "position": {"x": 300, "y": 120},
+      "type": "stock",
+      "description": "Aggregate quality of the frontier model."
+    },
+    {
+      "id": "compute_demand",
+      "label": "Compute Demand",
+      "position": {"x": 500, "y": 300},
+      "type": "variable",
+      "description": "Compute needed to train and serve increasingly large models."
+    },
+    {
+      "id": "compute_scarcity",
+      "label": "Compute Scarcity / Cost",
+      "position": {"x": 300, "y": 500},
+      "type": "variable",
+      "description": "Market price and queue depth for advanced GPUs and power capacity."
+    },
+    {
+      "id": "training_throughput",
+      "label": "Training Throughput",
+      "position": {"x": 100, "y": 300},
+      "type": "variable",
+      "description": "Effective training compute available to the lab after costs and queues."
+    }
+  ],
+  "edges": [
+    {
+      "id": "mc_to_cd",
+      "source": "model_capability",
+      "target": "compute_demand",
+      "polarity": "positive",
+      "description": "Pushing capability requires more compute per training run.",
+      "strength": "strong"
+    },
+    {
+      "id": "cd_to_cs",
+      "source": "compute_demand",
+      "target": "compute_scarcity",
+      "polarity": "positive",
+      "description": "Higher demand raises the price and queue depth for compute.",
+      "strength": "strong"
+    },
+    {
+      "id": "cs_to_tt",
+      "source": "compute_scarcity",
+      "target": "training_throughput",
+      "polarity": "negative",
+      "description": "Scarce, expensive compute reduces effective training throughput.",
+      "strength": "strong"
+    },
+    {
+      "id": "tt_to_mc",
+      "source": "training_throughput",
+      "target": "model_capability",
+      "polarity": "positive",
+      "description": "Lower training throughput slows capability gains.",
+      "strength": "strong"
+    }
+  ],
+  "loops": [
+    {
+      "id": "B1",
+      "type": "balancing",
+      "label": "B1: Compute Constraint",
+      "description": "The hardest physical limit on AI scaling. Slows everyone, but slows capital-poor labs more.",
+      "path": ["model_capability", "compute_demand", "compute_scarcity", "training_throughput", "model_capability"],
+      "behavior_pattern": "Goal-seeking — the system finds an equilibrium between demand and supply of compute.",
+      "position": {"x": 300, "y": 320},
+      "is_primary": true
+    }
+  ]
+}

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMLU Benchmark Performance 2020-2025</title>
+    
+    <!-- Chart.js version 2.9.4 for maximum browser compatibility -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .chart-area {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            padding: 20px;
+            background-color: white;
+            margin-bottom: 20px;
+            height: 500px;
+            position: relative;
+        }
+        .control-area {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .control-section {
+            margin-bottom: 15px;
+        }
+        .control-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .toggle-btn {
+            padding: 5px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            font-size: 14px;
+        }
+        .toggle-btn.active {
+            background-color: #e9ecef;
+            border-color: #adb5bd;
+        }
+        .model-btn {
+            display: flex;
+            align-items: center;
+        }
+        .color-marker {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 6px;
+            display: inline-block;
+        }
+        .footnote {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <h1>MMLU Benchmark Performance (2020-2025)</h1>
+    
+    <div class="chart-area">
+        <canvas id="mmluChart"></canvas>
+    </div>
+    
+    <div class="control-area">
+        <div class="control-section">
+            <div class="control-title">Model Families</div>
+            <div class="btn-group" id="family-toggles">
+                <!-- Family toggle buttons will be added here by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="control-section">
+            <div class="control-title">Individual Models</div>
+            <div class="btn-group" id="model-toggles">
+                <!-- Individual model toggle buttons will be added here by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="footnote">
+        <p>Source: Compiled from multiple public benchmarks and research papers, May 2025.</p>
+        <p>Note: MMLU (Massive Multitask Language Understanding) measures model performance across 57 subjects ranging from STEM to humanities.</p>
+    </div>
+    
+    <script>
+        // Wait for everything to load
+        window.onload = function() {
+            // MMLU data
+            const mmluData = [
+                { date: '2020-06', GPT3: 43.9 },
+                { date: '2021-06', GPT3: 45.2 },
+                { date: '2022-03', GPT3: 46.8, PaLM: 55.0 },
+                { date: '2023-03', GPT4: 86.4, Claude1: 71.2, PaLM: 58.2 },
+                { date: '2023-07', GPT4: 86.8, Claude2: 75.0, Gemini: 77.5, LLaMA2: 68.0 },
+                { date: '2023-12', GPT4: 87.0, Claude3: 82.1, Gemini: 81.2, LLaMA2: 69.2 },
+                { date: '2024-03', GPT4: 87.2, Claude3: 84.5, Gemini: 83.0, Mistral: 79.1 },
+                { date: '2024-06', GPT4o: 87.4, Claude35: 88.7, Gemini15: 85.1, Mistral: 80.7 },
+                { date: '2024-10', GPT4o: 87.6, Claude35: 89.1, Gemini2: 87.3, Llama3: 82.5 },
+                { date: '2025-02', GPT4o1: 91.5, Claude37: 88.0, Gemini25: 89.5, Llama4: 85.5 },
+                { date: '2025-04', GPT41: 90.2, Claude37: 87.0, Gemini25: 89.8, Llama4: 85.5, Grok3: 92.7 }
+            ];
+            
+            // Get dates for x-axis
+            const dates = mmluData.map(item => item.date);
+            
+            // Find all unique model names
+            const modelNames = [];
+            mmluData.forEach(item => {
+                Object.keys(item).forEach(key => {
+                    if (key !== 'date' && !modelNames.includes(key)) {
+                        modelNames.push(key);
+                    }
+                });
+            });
+            
+            // Model colors
+            const modelColors = {
+                GPT3: '#74b9ff',
+                GPT4: '#0984e3',
+                GPT4o: '#0984e3',
+                GPT4o1: '#0984e3',
+                GPT41: '#0984e3',
+                Claude1: '#fdcb6e',
+                Claude2: '#f39c12',
+                Claude3: '#e67e22',
+                Claude35: '#e67e22',
+                Claude37: '#e67e22',
+                PaLM: '#a29bfe',
+                Gemini: '#6c5ce7',
+                Gemini15: '#6c5ce7',
+                Gemini2: '#6c5ce7',
+                Gemini25: '#6c5ce7',
+                LLaMA2: '#55efc4',
+                Llama3: '#00b894',
+                Llama4: '#00b894',
+                Mistral: '#ff7675',
+                Grok3: '#d63031'
+            };
+            
+            // Group models by family
+            const modelFamilies = {
+                "OpenAI": ['GPT3', 'GPT4', 'GPT4o', 'GPT4o1', 'GPT41'],
+                "Anthropic": ['Claude1', 'Claude2', 'Claude3', 'Claude35', 'Claude37'],
+                "Google": ['PaLM', 'Gemini', 'Gemini15', 'Gemini2', 'Gemini25'],
+                "Meta": ['LLaMA2', 'Llama3', 'Llama4'],
+                "Other": ['Mistral', 'Grok3']
+            };
+            
+            // Prepare datasets for Chart.js
+            const datasets = modelNames.map(model => {
+                // Get scores for this model at each date
+                const modelScores = mmluData.map(item => item[model] || null);
+                
+                return {
+                    label: model,
+                    data: modelScores,
+                    borderColor: modelColors[model],
+                    backgroundColor: modelColors[model],
+                    fill: false,
+                    pointRadius: 4,
+                    pointHoverRadius: 7,
+                    borderWidth: 2,
+                    hidden: false // Initially all visible
+                };
+            });
+            
+            // Create the chart
+            const ctx = document.getElementById('mmluChart').getContext('2d');
+            const mmluChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                min: 40,
+                                max: 100
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'MMLU Score (%)'
+                            }
+                        }],
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Date'
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: false // We'll use our custom toggles
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                return data.datasets[tooltipItem.datasetIndex].label + ': ' + 
+                                       tooltipItem.yLabel.toFixed(1) + '%';
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Add family toggle buttons
+            const familyTogglesContainer = document.getElementById('family-toggles');
+            Object.keys(modelFamilies).forEach(family => {
+                const button = document.createElement('button');
+                button.className = 'toggle-btn active';
+                button.textContent = family;
+                button.dataset.family = family;
+                
+                button.onclick = function() {
+                    // Get models in this family
+                    const models = modelFamilies[family];
+                    
+                    // Check if this button is currently active
+                    const isActive = this.classList.contains('active');
+                    
+                    // Toggle button state
+                    this.classList.toggle('active');
+                    
+                    // Update chart visibility for all models in this family
+                    models.forEach(model => {
+                        // Find dataset index for this model
+                        const datasetIndex = datasets.findIndex(d => d.label === model);
+                        
+                        // Toggle visibility (opposite of current button state)
+                        mmluChart.getDatasetMeta(datasetIndex).hidden = isActive;
+                        
+                        // Also update individual model button
+                        const modelButton = document.querySelector(`.model-btn[data-model="${model}"]`);
+                        if (modelButton) {
+                            if (isActive) {
+                                modelButton.classList.remove('active');
+                            } else {
+                                modelButton.classList.add('active');
+                            }
+                        }
+                    });
+                    
+                    mmluChart.update();
+                };
+                
+                familyTogglesContainer.appendChild(button);
+            });
+            
+            // Add individual model toggle buttons
+            const modelTogglesContainer = document.getElementById('model-toggles');
+            modelNames.forEach(model => {
+                const button = document.createElement('button');
+                button.className = 'toggle-btn model-btn active';
+                button.dataset.model = model;
+                
+                // Add color marker and model name
+                const colorMarker = document.createElement('span');
+                colorMarker.className = 'color-marker';
+                colorMarker.style.backgroundColor = modelColors[model];
+                button.appendChild(colorMarker);
+                
+                const modelText = document.createTextNode(model);
+                button.appendChild(modelText);
+                
+                button.onclick = function() {
+                    // Find dataset index for this model
+                    const datasetIndex = datasets.findIndex(d => d.label === model);
+                    
+                    // Get current visibility state
+                    const isHidden = mmluChart.getDatasetMeta(datasetIndex).hidden;
+                    
+                    // Toggle visibility
+                    mmluChart.getDatasetMeta(datasetIndex).hidden = !isHidden;
+                    
+                    // Toggle button state
+                    this.classList.toggle('active');
+                    
+                    // Update family button state if needed
+                    // Find which family this model belongs to
+                    for (const [family, models] of Object.entries(modelFamilies)) {
+                        if (models.includes(model)) {
+                            // Get all models in this family
+                            const familyModels = models;
+                            
+                            // Find family button
+                            const familyButton = document.querySelector(`.toggle-btn[data-family="${family}"]`);
+                            
+                            // Check if all models in this family are now visible or all hidden
+                            const allHidden = familyModels.every(m => {
+                                const idx = datasets.findIndex(d => d.label === m);
+                                return mmluChart.getDatasetMeta(idx).hidden;
+                            });
+                            
+                            const allVisible = familyModels.every(m => {
+                                const idx = datasets.findIndex(d => d.label === m);
+                                return !mmluChart.getDatasetMeta(idx).hidden;
+                            });
+                            
+                            // Update family button state accordingly
+                            if (allHidden) {
+                                familyButton.classList.remove('active');
+                            } else if (allVisible) {
+                                familyButton.classList.add('active');
+                            }
+                            
+                            break;
+                        }
+                    }
+                    
+                    mmluChart.update();
+                };
+                
+                modelTogglesContainer.appendChild(button);
+            });
+        };
+    </script>
+</body>
+</html>
