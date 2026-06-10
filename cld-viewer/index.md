@@ -17,7 +17,7 @@ to load a CLD, or use the file loader to drop your own JSON file in the
 
 ## Loaded CLDs
 
-- [Winner Takes All](./main.html?file=winner-takes-all-cld&menu=true) — see the [Winner Takes All article](../../articles/winner-takes-all.md) for the full discussion.
+- [Winner Takes All](./main.html?file=winner-takes-all-cld&menu=true) — see the [Winner Takes All article](../../../articles/winner-takes-all.md) for the full discussion.
 
 ## How it Works
 

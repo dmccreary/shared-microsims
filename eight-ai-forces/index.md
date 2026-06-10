@@ -43,4 +43,4 @@ Click any of the eight icons — or the numbered markers in the panels — to re
 
 ## Source
 
-This MicroSim accompanies the article [Winner Takes All? A Systems View of the AI Race](../../articles/winner-takes-all.md), which walks through each of these loops one at a time as a separate causal-loop diagram before assembling them into a full system view.
+This MicroSim accompanies the article [Winner Takes All? A Systems View of the AI Race](../../../articles/winner-takes-all.md), which walks through each of these loops one at a time as a separate causal-loop diagram before assembling them into a full system view.
