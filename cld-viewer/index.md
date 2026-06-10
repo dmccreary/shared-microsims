@@ -34,6 +34,6 @@ the diagram with physics disabled, so dragging a node moves it permanently.
 
 ### Adding New CLDs
 
-1. Drop a `<name>-cld.json` file into [`docs/sims/cld-viewer/examples/`](https://github.com/dmccreary/tracking-ai-course/tree/main/docs/sims/cld-viewer/examples).
-2. Add an entry to the `examples` array in [`cld-viewer.js`](https://github.com/dmccreary/tracking-ai-course/blob/main/docs/sims/cld-viewer/cld-viewer.js).
+1. Drop a `<name>-cld.json` file into [`cld-viewer/examples/`](https://github.com/dmccreary/shared-microsims/tree/main/cld-viewer/examples).
+2. Add an entry to the `examples` array in [`cld-viewer.js`](https://github.com/dmccreary/shared-microsims/blob/main/cld-viewer/cld-viewer.js).
 3. Reference it from any markdown page with an iframe pointing at `?file=<name>`.
